@@ -25,7 +25,7 @@ if ($r->num_rows == 0)
 	logger($clientip, "form_404", "Form doesn't exist");
 $row = $r->fetch_assoc();
 if ($row["form_type"] == "form")
-	if ($row["form_pass"] !== $_POST["password"])
+	if ($row["form_pass"] !== hash('sha256', $_POST["password"]))
 		logger($clientip, "password_err", "Incorrect password.");
 
 $a = json_decode($row["form_a"]);

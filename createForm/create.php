@@ -71,7 +71,7 @@ if ($x->form_type == "form") {
 
     if ($_POST["description"])
         $x->description = $sql->real_escape_string($_POST["description"]);
-    $x->password = $sql->real_escape_string($_POST["password"]);
+    $x->password = $sql->real_escape_string(hash('sha256', $_POST["password"]));
 }
 
 $i = 0;
