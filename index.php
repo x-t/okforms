@@ -30,7 +30,7 @@
     <a href="/createPoll" class="button create">create a poll</a>
     </div>
     <div class="viewButton">
-    <form id="viewForm" method="get" action="viewForm/index.php">
+    <form id="viewForm" method="get" action="viewForm/index.php" autocomplete="off">
         <input class="viewID" type="text" name="id" placeholder="Form/poll ID" />
         <a href="javascript:document.getElementById('viewForm').submit()" class="button view">View form</a>
     </form>
