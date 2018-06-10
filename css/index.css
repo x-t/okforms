@@ -93,10 +93,15 @@ a.button {
 
 .viewID {
     border: none;
-    background-color: #bdae93;
+    background-color: #a89984;
     color: white;
     padding: 14px 20px;
     box-sizing: border-box;
+}
+
+::placeholder {
+    color: #ebdbb2;
+    opacity: 1;
 }
 
 .create {
