@@ -1,0 +1,113 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #fbf1c7;
+    background-color: #7c6f64;
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+    color: #fbf1c7;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 10%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.overlayContent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    color: black;
+}
+
+.overlayContent a {
+    color: black;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+    outline: none;
+    border: none;
+}
+
+.overlayClose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.overlayClose:hover,
+.overlayClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.privacyClose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.privacyClose:hover,
+.privacyClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cdiv {
+    text-align: center;
+}
+
+.viewButton {
+    margin-top: 20px;
+}
+
+.view {
+    background-color: #83a598;
+    padding: 15px 20px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.viewID {
+    border: none;
+    background-color: #bdae93;
+    color: white;
+    padding: 14px 20px;
+    box-sizing: border-box;
+}
+
+.create {
+    background-color: #8ec07c;
+    padding: 15px 32px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+.footer {
+    width: 100%;
+    padding-top: 100px;
+    text-align: center;
+}
