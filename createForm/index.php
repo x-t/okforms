@@ -6,6 +6,7 @@
 var MAX_Q_LEN = <?php echo $MAX_QUESTION_LEN; ?>;
 var MAX_C_LEN = <?php echo $MAX_CHOICE_LEN; ?>;
 var MAX_T_LEN = <?php echo $MAX_TANSWER_LEN; ?>;
+var POLL_MODE = false;
 </script>
 <script src="/js/createForm.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/createForm.min.css" />

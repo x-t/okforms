@@ -102,7 +102,7 @@ function gen_choices(qid, type) {
     // t - text field
 
     if (type === 's') {
-        if (typeof(POLL_MODE) !== 'undefined') {
+        if (POLL_MODE === true) {
             document.getElementById('pollAnsType').value = "single";
             document.getElementById('addChoiceLi').style.display = "block";
             document.getElementById('choiceSingle').style.backgroundColor = "#dbd9d9";
@@ -116,7 +116,7 @@ function gen_choices(qid, type) {
                 '</div>' + 
              "</div>";
     } else if (type === 'm') {
-        if (typeof(POLL_MODE) !== 'undefined') {
+        if (POLL_MODE === true) {
             document.getElementById('pollAnsType').value = "multiple";
             document.getElementById('addChoiceLi').style.display = "block";
             document.getElementById('choiceMult').style.backgroundColor = "#dbd9d9";
@@ -130,7 +130,7 @@ function gen_choices(qid, type) {
                 '</div>' +
              "</div>";
     } else if (type === 't') {
-        if (typeof(POLL_MODE) !== 'undefined') {
+        if (POLL_MODE === true) {
             document.getElementById('pollAnsType').value = "text";
             document.getElementById('addChoiceLi').style.display = "none";
             document.getElementById('choiceText').style.backgroundColor = "#dbd9d9";
