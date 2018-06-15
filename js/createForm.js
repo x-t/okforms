@@ -2,6 +2,24 @@
 var q = -1;
 
 /*
+ * strrepeat(s, l)
+ * 
+ * Repeat string s l times
+ * 
+ * @param str s String
+ * @param int l Times to be repeated
+ * 
+ * @return str Repeated string
+ */
+function strrepeat(s, l) {
+    var str = '';
+    for (let index = 0; index < l; index++) {
+        str += s;
+    }
+    return str;
+}
+
+/*
  * light_type(q)
  * 
  * Highlight the type of the question on the sidebar
@@ -138,7 +156,7 @@ function gen_choices(qid, type) {
             document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
         }
         b += "<p>" +
-             "<input class=\"formTitle\" style=\"width:100%;\" type=\"text\" name=\"question[" + qid + "][maxlen]\" maxlength=\"" + MAX_T_LEN + "\" placeholder=\"Max length (>512 is considered a paragraph, max is " + "9".repeat(MAX_T_LEN) + ")\"/>" +
+             "<input class=\"formTitle\" style=\"width:100%;\" type=\"text\" name=\"question[" + qid + "][maxlen]\" maxlength=\"" + MAX_T_LEN + "\" placeholder=\"Max length (>512 is considered a paragraph, max is " + strrepeat("9", MAX_T_LEN) + ")\"/>" +
              "</p>";
     }
 
