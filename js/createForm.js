@@ -13,7 +13,7 @@ var q = -1;
  */
 function strrepeat(s, l) {
     var str = '';
-    for (let index = 0; index < l; index++) {
+    for (var index = 0; index < l; index++) {
         str += s;
     }
     return str;
