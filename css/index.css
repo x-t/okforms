@@ -36,11 +36,7 @@ a {
     text-decoration: 1;
 }
 
-a.button {
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-
+button {
     text-decoration: none;
     color: white;
     outline: none;
@@ -110,7 +106,6 @@ a.button {
     color: white;
     padding: 15px 32px;
     font-size: 16px;
-    display: inline-block;
 }
 
 .footer {

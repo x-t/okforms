@@ -26,14 +26,14 @@
     <div class="cdiv">
     <h2>okforms</h2>
     <div class="createButtons">
-    <a href="/createForm" class="button create">create a form</a>
+    <button class="create" type="button" onclick="javascript:location.href='/createForm'">create a form</button>
     <a href="#" style="underline:none;text-decoration:none" id="overlayShow" title="What's the difference?"><span class="fas fa-question-circle"></span></a>
-    <a href="/createPoll" class="button create">create a poll</a>
+    <button type="button" onclick="javascript:location.href='/createPoll'" class="create">create a poll</button>
     </div>
     <div class="viewButton">
     <form id="viewForm" method="get" action="viewForm/index.php" autocomplete="off">
         <input class="viewID" type="text" name="id" placeholder="Form/poll ID" />
-        <a href="javascript:document.getElementById('viewForm').submit()" class="button view">View form</a>
+        <button type="submit" class="view">View form</a>
     </form>
     </div>
     </div>
