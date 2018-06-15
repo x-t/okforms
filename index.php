@@ -4,6 +4,7 @@
     <?php include('./vars.php'); ?>
     <script src="/js/index.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/index.min.css" />
+    <link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
 </head>
 <body>
     <div id="diffOverlay" class="overlay">
@@ -26,7 +27,7 @@
     <h2>okforms</h2>
     <div class="createButtons">
     <a href="/createForm" class="button create">create a form</a>
-    <a href="#" style="underline:none;text-decoration:none" id="overlayShow" title="What's the difference?">&#10068;</a>
+    <a href="#" style="underline:none;text-decoration:none" id="overlayShow" title="What's the difference?"><span class="fas fa-question-circle"></span></a>
     <a href="/createPoll" class="button create">create a poll</a>
     </div>
     <div class="viewButton">
@@ -37,7 +38,7 @@
     </div>
     </div>
     <div class="footer">
-    <a href="#" id="gdprShow">Privacy</a> | <a href="https://github.com/x-t/okforms">Source</a>
+    <a href="#" id="gdprShow" title="Privacy"><span class="fas fa-lock"></span></a> | <a href="https://github.com/x-t/okforms" title="Source code"><span class="fab fa-github"></span></a>
     </div>
 </body>
 </html>

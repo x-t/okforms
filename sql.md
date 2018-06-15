@@ -36,6 +36,7 @@ Table for Forms:
 | form_sameip  | tinyint(1)    | NO   |     | NULL    |       |
 | form_q       | mediumtext    | YES  |     | NULL    |       |
 | form_a       | mediumtext    | YES  |     | NULL    |       |
+| form_style   | mediumtext    | YES  |     | NULL    |       |
 +--------------+---------------+------+-----+---------+-------+
 -----------------------------
 

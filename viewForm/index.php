@@ -2,11 +2,8 @@
 <html>
 <head>
 <title>viewing form</title>
-<script>
-var MAX_P_LEN = <?php echo $MAX_PASS_LEN; ?>;
-var MAX_R_LEN = <?php echo $MAX_REPORT_REASON_LEN; ?>;
-</script>
-<script src="/js/viewForm.min.js"></script>
+<link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="/css/viewForm.min.css" />
 </head>
 <body>
 <?php
@@ -29,28 +26,26 @@ if ($r->num_rows == 0)
 $row = $r->fetch_assoc();
 
 if (time() > $row["form_expires"]) {
-    if ($row["form_type"] == "form") {
-?>
-<p id="answers">
-<a href="javascript:admin_creds('<?php echo $row["form_id"]; ?>')">View form answers</a>
-</p>
-<?php
-    } else {
-?>
-<p id="answers">
-<a href="javascript:document.getElementById('answers_form').submit()">View poll answers</a>
-<form id="answers_form" method="post" action="/viewForm/answers.php">
-<input type="hidden" value="<?php echo htmlspecialchars($_GET["id"]); ?>" name="form_id" />
-</form>
-</p>
-<?php
-    }
-    throwerror("Viewing an expired form. (" . $row["form_id"] . ")");
+    $x = new stdClass();
+    $x->type = "form_expire";
+    if ($row["form_type"] == "form")
+        $x->desc = "Viewing an expired form";
+    else
+        $x->desc = "Viewing an expired poll";
+    genErrPage($x);
 }
+?>
+<ul>
+    <li><a class="ex">okforms</a></li>
+    <li class="r"><a href="/viewForm/answers.php?id=<?php echo $row["form_id"]; ?>"><span class="fas fa-chart-pie"></span> View answers</a></li>
+    <li class="r"><a href="/viewForm/report.php?id=<?php echo $row["form_id"]; ?>"><span class="fas fa-flag"></span> Report form</a></li>
+</ul>
 
-echo "<h3>" . htmlspecialchars($row['form_title']) . "</h3>";
+<div class="mainForm">
+<?php
+echo "<h2 class=\"formTitle c\">" . htmlspecialchars($row['form_title']) . "</h3>";
 if ($row["form_desc"])
-    echo "<p><em>" . htmlspecialchars($row['form_desc']) . "</em></p>";
+    echo "<p class=\"formDesc c\">" . htmlspecialchars($row['form_desc']) . "</p>";
 $qs = json_decode($row["form_q"]);
 
 echo '<form action="/viewForm/vote.php" method="post" id="vote">';
@@ -58,7 +53,7 @@ printf('<input type="hidden" name="form_id" value="%s" />', htmlspecialchars($_G
 $i = 0;
 foreach ($qs as $s) {
     if ($row["form_type"] == "form")
-        printf("<p>%d. %s</p>", $i + 1, htmlspecialchars($s->q));
+        printf("<h4>%d. %s</h4>", $i + 1, htmlspecialchars($s->q));
     printf('<input type="hidden" name="k[%d][r]" value="%d" />', $i, $s->req);
     printf('<input type="hidden" name="k[%d][t]" value="%s" />', $i, $s->type);
     if ($s->type == "text") {
@@ -82,29 +77,24 @@ foreach ($qs as $s) {
 
 $sql->close();
 
-if (can_do($clientip, "vote"))
-    echo '<p id="submit-ans"><input type="submit" value="Submit answers" /></p>';
+$c = can_do($clientip, "vote");
+if ($c->can === false) {
+    $x = new stdClass();
+    if ($c->why == "ban") {
+        $x->type = "ban";
+        $x->desc = "You are banned. Reason: {$c->reason}.";
+        printf("<p class=\"c\">%s</p>", $x->desc);
+    } else if ($c->why == "timeout") {
+        $x->type = "timeout";
+        $x->desc = "You have to wait {$c->timeout} seconds before voting";
+        printf("<p class=\"c\">%s</p>", $x->desc);
+    }
+} else {
+    echo '<button type="submit" class="submitBtn">Submit answers</button>';
+}
 
 ?>
 </form>
-<hr />
-<?php if ($row["form_type"] == "form") { ?>
-<p><a href="javascript:admin_creds(<?php echo '\'' . htmlspecialchars($_GET['id']) . '\''; ?>)">View form answers</a> 
-<?php } else { ?>
-<p>
-<a href="javascript:{}" onclick="document.getElementById('answers_form').submit()">View poll results</a>
-<?php } ?>
-<a href="javascript:report_form('<?php echo htmlspecialchars($_GET["id"]); ?>')">Report form</a>
-</p>
-<p id="answers">
-<?php 
-if ($row["form_type"] == "poll") {
-?>
-<form id="answers_form" method="post" action="/viewForm/answers.php">
-<input type="hidden" value="<?php echo htmlspecialchars($_GET["id"]); ?>" name="form_id" />
-</form>
-<?php } ?>
-</p>
-<p id="report"></p>
+</div>
 </body>
 </html>

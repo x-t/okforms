@@ -1,3 +1,8 @@
+<html>
+<head>
+<link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+</head>
+<body>
 <?php
 
 include '../vars.php';
@@ -7,8 +12,19 @@ if (getip() !== false)
 else
     throwerror("Couldn't get your IP.");
 
-if (!can_do($clientip, "create"))
-    throwerror("You can't create a form.");
+$c = can_do($clientip, "create");
+if ($c->can === false) {
+    $x = new stdClass();
+    if ($c->why == "ban") {
+        $x->type = "ban";
+        $x->desc = "You are banned. Reason: {$c->reason}.";
+        genErrPage($x);
+    } else if ($c->why == "timeout") {
+        $x->type = "timeout";
+        $x->desc = "You have to wait {$c->timeout} seconds before making a new form.";
+        genErrPage($x);
+    }
+}
 
 $sql = sqlcon();
 
@@ -23,9 +39,10 @@ if (!isset($_POST["expires"]) || !$_POST["expires"])
 if (!isset($_POST["sameip"]) || !$_POST["sameip"])
     logger($clientip, "form_param_missing", "Same IP rule not set");
 
-if ($_POST["form-type"] === "form")
+if ($_POST["form-type"] === "form") {
     if (!isset($_POST["password"]) || !$_POST["password"])
         logger($clientip, "form_param_missing", "No form password was specified");
+}
 
 $x = new stdClass();
 
@@ -76,19 +93,20 @@ if ($x->form_type == "form") {
 
 $i = 0;
 foreach ($_POST["question"] as $question) {
+    $realnum = $i + 1;
     if (!isset($question["type"]) || !$question["type"])
-        logger($clientip, "form_param_missing", "Question type not specified (" . $i + 1 . ")");
+        logger($clientip, "form_param_missing", "Question type not specified ({$realnum})");
 
     if (!isset($question["req"]) || !$question["req"]) {
         if ($x->form_type == "form")
-            logger($clientip, "form_param_missing", "Requirement not specified (" . $i + 1 . ")");
+            logger($clientip, "form_param_missing", "Requirement not specified ({$realnum})");
         else 
             $question["req"] = "yes";
     }
 
 if (!isset($question["q"]) || !$question["q"]) {
     if ($x->form_type == "form")
-        logger($clientip, "form_param_missing", "No given question (" . $i + 1 . ")");
+        logger($clientip, "form_param_missing", "No given question ({$realnum})");
     else
         $question["q"] = $x->title;
 }
@@ -100,17 +118,17 @@ if (!isset($question["q"]) || !$question["q"]) {
     else if ($question["req"] == "no") 
         $x->question[$i]->req = 0;
     else
-        logger($clientip, "requirement_unknown", "Unknown requirement (" . $i + 1 . ")");
+        logger($clientip, "requirement_unknown", "Unknown requirement ({$realnum})");
 
     $x->question[$i]->q = $question["q"];
 
     if ($question["type"] == "single") {
         if (!isset($question["choices"]) || !$question["choices"])
-            logger($clientip, "choice_err", "No specified choices (" . $i + 1 . ")");
+            logger($clientip, "choice_err", "No specified choices ({$realnum})");
         $ii = 0;
         foreach ($question["choices"] as $choice) {
             if (!isset($choice) || !$choice)
-                logger($clientip, "choice_err", "Choice not set (" . $i + 1 . ")");
+                logger($clientip, "choice_err", "Choice not set ({$realnum})");
             len_or_error($choice, $MAX_CHOICE_LEN, "Choice length &gt; {$MAX_CHOICE_LEN}");
             $x->question[$i]->choices[$ii] = $choice;
             $ii++;
@@ -118,11 +136,11 @@ if (!isset($question["q"]) || !$question["q"]) {
         $x->question[$i]->type = "single";
     } else if ($question["type"] == "multiple") {
         if (!isset($question["choices"]) || !$question["choices"])
-            logger($clientip, "choice_err", "No specified choices (" . $i + 1 . ")");
+            logger($clientip, "choice_err", "No specified choices ({$realnum})");
         $ii = 0;
         foreach ($question["choices"] as $choice) {
             if (!isset($choice) || !$choice)
-                logger($clientip, "choice_err", "Choice not set (" . $i + 1 . ")");
+                logger($clientip, "choice_err", "Choice not set ({$realnum})");
             len_or_error($choice, $MAX_CHOICE_LEN, "Choice length &gt; {$MAX_CHOICE_LEN}");
             $x->question[$i]->choices[$ii] = $choice;
             $ii++;
@@ -130,12 +148,12 @@ if (!isset($question["q"]) || !$question["q"]) {
         $x->question[$i]->type = "multiple";
     } else if ($question["type"] == "text") {
         if (!isset($question["maxlen"]) || !$question["maxlen"] || !intval($question["maxlen"]))
-            logger($clientip, "max_len_miss", "Max length not specified (" . $i + 1 . ")");
+            logger($clientip, "max_len_miss", "Max length not specified ({$realnum})");
         len_or_error($question["maxlen"], $MAX_TANSWER_LEN, "Max length &gt; " . str_repeat("9", $MAX_TANSWER_LEN));
         $x->question[$i]->type = "text";
         $x->question[$i]->maxlen = intval($question["maxlen"]);
     } else {
-        logger($clientip, "question_type_err", "Unknown question type (" . $i + 1 . ")");
+        logger($clientip, "question_type_err", "Unknown question type ({$realnum})");
     }
 
     $i++;
@@ -156,6 +174,7 @@ if ($r->num_rows > 0) {
     $x->id = ($x->form_type == "form" ? 'f' . gen64(10) : 'p' . gen64(10));
 }
 
+
 $q = "INSERT INTO {$SQLTB}(form_id, form_ip, form_type, form_made, form_expires, form_pass, form_title, form_q, form_sameip) VALUES('{$x->id}', '{$x->ip}', '{$x->form_type}', '{$x->made}', '{$x->expires}', '{$x->password}', '{$x->title}', '" . $sql->real_escape_string(json_encode($x->question)) . "', '{$x->sameip}')";
 
 $r = $sql->query($q);
@@ -175,3 +194,5 @@ $sql->close();
 header("Location: /viewForm/?id={$x->id}");
 
 ?>
+</body>
+</html>

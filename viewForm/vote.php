@@ -1,3 +1,8 @@
+<html>
+<head>
+<link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
+</head>
+<body>
 <?php
 
 include '../vars.php';
@@ -7,8 +12,19 @@ if (getip() !== false)
 else
     throwerror("Couldn't get your IP.");
 
-if (!can_do($clientip, "vote"))
-    throwerror("You can't vote");
+$c = can_do($clientip, "vote");
+if ($c->can === false) {
+    $x = new stdClass();
+    if ($c->why == "ban") {
+        $x->type = "ban";
+        $x->desc = "You are banned. Reason: {$c->reason}.";
+        genErrPage($x);
+    } else if ($c->why == "timeout") {
+        $x->type = "timeout";
+        $x->desc = "You have to wait {$c->timeout} seconds before voting";
+        genErrPage($x);
+    }
+}
 
 if (!isset($_POST["form_id"]) || !$_POST["form_id"])
     logger($clientip, "form_id_404", "Form ID was not sent or is empty.");
@@ -92,18 +108,10 @@ $r = $sql->query($q);
 if (!$r)
     logger($clientip, "sql_error", "SQL Error " . $sql->error);
 
-logger($clientip, "success_vote", "A successful vote for ID" . $sql->real_escape_string($_POST["form_id"]));
-
-echo '<p id="success">Submitted!</p><br /><a href="javascript:window.history.back()">Back</a>';
+logger($clientip, "success_vote", "A successful vote for ID " . $sql->real_escape_string($_POST["form_id"]));
 
 $sql->close();
 
-if ($row["form_type"] == "poll") {
-    echo '<br /><a href="javascript:document.getElementById(\'answers_form\').submit()">View answers</a>';
 ?>
-<form id="answers_form" method="post" action="/viewForm/answers.php">
-<input type="hidden" value="<?php echo htmlspecialchars($row["form_id"]); ?>" name="form_id" />
-</form>
-<?php
-}
-?>
+</body>
+</html>

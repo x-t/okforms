@@ -5,8 +5,11 @@
     <script>
     var MAX_C_LEN = <?php echo $MAX_CHOICE_LEN; ?>;
     var MAX_T_LEN = <?php echo $MAX_TANSWER_LEN; ?>;
+    var POLL_MODE = true;
     </script>
     <script src="/js/createForm.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/createForm.min.css" />
+    <link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
 </head>
 <body>
 <?php
@@ -15,49 +18,55 @@ if (getip() !== false)
 else
     throwerror("Couldn't get your IP.");
 
-if (!can_do($clientip, "create"))
-    throwerror("You can't create a form.");
+$c = can_do($clientip, "create");
+if ($c->can === false) {
+    $x = new stdClass();
+    if ($c->why == "ban") {
+        $x->type = "ban";
+        $x->desc = "You are banned. Reason: {$c->reason}.";
+        genErrPage($x);
+    } else if ($c->why == "timeout") {
+        $x->type = "timeout";
+        $x->desc = "You have to wait {$c->timeout} seconds before making a new poll.";
+        genErrPage($x);
+    }
+}
 ?>
-<div style="left: 10%; right: 10%; width: 80%; position: absolute;">
-    <form method="post" action="/createForm/create.php" id="newpoll">
+
+<ul>
+    <li><strong><a class="ex">Change type</a></strong></li>
+    <li id="choiceSingle"><a href="javascript:gen_choices(0, 's')"><span class="fas fa-check-circle"></span> Single choice</a></li>
+    <li id="choiceMult"><a href="javascript:gen_choices(0, 'm')"><span class="fas fa-check-square"></span> Multiple choices</a></li>
+    <li id="choiceText"><a href="javascript:gen_choices(0, 't')"><span class="fas fa-font"></span> Text choice</a></li>
+    <li><a class="ex"></a></li>
+    <li><a id="addChoiceLi" style="display:none" href="javascript:add_choice(0)"><span class="fas fa-plus"></span> Add choice</a></li>
+    <li><a class="ex"></a></li>
+    <li><a href="javascript:document.getElementById('newform').submit()"><span class="fas fa-arrow-circle-right"></span> Submit poll</a></li>
+</ul>
+
+<div class="formMain">
+    <div class="fdiv">
+    <form method="post" action="/createForm/create.php" id="newform" autocomplete="off">
         <input type="hidden" name="form-type" value="poll" />
-        <table style="display: table">
-        <tbody>
-            <tr data-type="title">
-                <td>question</td>
-                <td><input type="text" name="title" maxlength="<?php echo $MAX_TITLE_LEN; ?>" /></td>
-            </tr>
-            <tr data-type="expires">
-                <td title="People won't be able to vote, but the data will stay">expires (minutes)</td>
-                <td><input type="text" name="expires" /></td>
-            </tr>
-            <tr>
-                <td title="If allowed, people from the same IP can answer more than one time">allow same ip?</td>
-                <td><input type="radio" value="true" name="sameip" />yes<br /><input type="radio" value="false" name="sameip" />no</td>
-            </tr>
-        </tbody>
+        <input type="text" name="title" class="formTitle" maxlength="<?php echo $MAX_TITLE_LEN; ?>" placeholder="Question" />
+        <input type="text" name="expires" class="formTitle" maxlength="10" placeholder="Expires in (minutes)" />
+        <table style="display: table;margin-left: 10px;">
+        <tr>
+                <td title="If allowed, people from the same IP can answer more than one time">Allow same IP?</td>
+                <td><input class="formRadio" type="radio" value="true" name="sameip" />Yes <input class="formRadio" type="radio" value="false" name="sameip" />No</td>
+        </tr>
         </table>
         <div id="formelem">
-                <p>Type:
-                    <table>
-                        <tr>
-                            <td>Single choice</td>
-                            <td><input type="radio" name="question[0][type]" value="single" onclick="gen_choices(0, 's')" /></td>
-                        </tr>
-                        <tr>
-                            <td>Multiple choices</td>
-                            <td><input type="radio" name="question[0][type]" value="multiple" onclick="gen_choices(0, 'm')" /></td>
-                        </tr>
-                        <tr>
-                            <td> Text field</td>
-                            <td><input type="radio" name="question[0][type]" value="text" onclick="gen_choices(0, 't')" /></td>
-                        </tr>
-                    </table>
-                </p>
+            <br />
+            <br />
+            <div id="q0">
+                <input type="hidden" name="question[0][type]" id="pollAnsType" />
                 <div id="q0-c"></div>
+            </div>
+            
         </div>
+    </div>
         <br />
-        <input type="submit" value="publish poll" />
     </form>
 </div>
 </body>

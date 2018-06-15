@@ -1,13 +1,11 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    color: #fbf1c7;
-    background-color: #7c6f64;
 }
 
 a {
     text-decoration: none;
     outline: none;
-    color: #fbf1c7;
+    color: black;
 }
 
 .overlay {
@@ -35,6 +33,7 @@ a {
 
 .overlayContent a {
     color: black;
+    text-decoration: 1;
 }
 
 a.button {
@@ -43,7 +42,7 @@ a.button {
     appearance: button;
 
     text-decoration: none;
-    color: initial;
+    color: white;
     outline: none;
     border: none;
 }
@@ -85,7 +84,8 @@ a.button {
 }
 
 .view {
-    background-color: #83a598;
+    background-color: black;
+    color: white;
     padding: 15px 20px;
     font-size: 16px;
     display: inline-block;
@@ -93,19 +93,21 @@ a.button {
 
 .viewID {
     border: none;
-    background-color: #a89984;
-    color: white;
-    padding: 14px 20px;
+    background-color: white;
+    color: black;
+    padding: 12px 20px;
+    border-bottom: 2px solid black;
     box-sizing: border-box;
 }
 
 ::placeholder {
-    color: #ebdbb2;
+    color: black;
     opacity: 1;
 }
 
 .create {
-    background-color: #8ec07c;
+    background-color: black;
+    color: white;
     padding: 15px 32px;
     font-size: 16px;
     display: inline-block;

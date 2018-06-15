@@ -29,19 +29,16 @@ The tables are given in [sql.md](sql.md)
 * Change the values [vars.php](vars.php) to your liking
 * Shove it all in your webroot
 
+## Other software used in this project
+| Name | Where | Link |
+| ---- | ----- | ---- |
+| FontAwesome | everywhere | https://fontawesome.com/ |
+
 ## Javascript/CSS
-This page uses minified Javascript and CSS. The minified versions are already included, however for any changes make sure to create a minified version. I recommend [this](https://marketplace.visualstudio.com/items?itemName=HookyQR.minify) VSCode extension.
+This page uses minified Javascript and CSS. The minified versions are already included, however for any changes make sure to create a minified version. I recommend [this](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify) VSCode extension.
 
 ## License
 This project is licensed under the MIT (Expat) license, for more info see the [LICENSE](LICENSE.md) file.
 
 ## LibreJS notice
 Due to the lack of documentation on fixing up your JS files to meet the freedom standards, I chose not to support LibreJS. If anyone wants to make this LibreJS-compliant, please do so.
-
-## Browser compatibility
-| Browser | Version | Status | Notes |
-| ------- | ------- | ------ | ----- |
-| Firefox | 60.0.1  | Perfect | Main development |
-| Chromium | 66.0.3359.181 | Perfect | Can be discarded, supports f\*cking anything. |
-| w3m | 0.5.3 | Usable | Only for voting and viewing forms |
-| EWW | 26 | Usable | Only for voting and viewing forms |
