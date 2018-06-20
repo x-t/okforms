@@ -41,7 +41,7 @@ function export_json(id) {
     buf += '            "prettytime": "' + x[1].innerHTML + '",\n';
     buf += '            "question": [\n';
         for (var index1 = 2; index1 < x.length; index1++) {
-            const element = x[index1];
+            var element = x[index1];
     buf += '                {\n';
     buf += '                    "q": "' + h[index1].innerHTML + '",\n';
     buf += '                    "a": "' + element.innerHTML + '"\n';
