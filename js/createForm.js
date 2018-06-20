@@ -31,6 +31,7 @@ function light_type(q) {
     var cm = document.getElementById('choiceMult');
     var ct = document.getElementById('choiceText');
     var cd = document.getElementById('choiceDrop');
+    var cl = document.getElementById('choiceLinear');
     var t = q.getAttribute('data-qtype');
     if (t == 's') {
         cs.style.backgroundColor = "#dbd9d9";
@@ -40,6 +41,8 @@ function light_type(q) {
         cm.style.backgroundColor = "#dbd9d9";
     } else if (t == 'd') {
         cd.style.backgroundColor = "#dbd9d9";
+    } else if (t == 'l') {
+        cl.style.backgroundColor = "#dbd9d9";
     }
 }
 /*
@@ -52,6 +55,49 @@ function delete_light() {
     document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
     document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
     document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
+    document.getElementById('choiceLinear').style.backgroundColor = "#f1f1f1";
+}
+
+/*
+ * poll_light(type)
+ * 
+ * Highlight the type of question in poll
+ * 
+ * @param str type The type of question
+ */
+function poll_light(type) {
+    if (type == 's') {
+        var t = 'single';
+    } else if (type == 't') {
+        var t = 'text';
+    } else if (type == 'm') {
+        var t = 'multiple';
+    } else if (type == 'd') {
+        var t = 'dropdown';
+    } else if (type == 'l') {
+        var t = 'linear';
+    }
+
+    document.getElementById('pollAnsType').value = t;
+    if (type === 't' || type === 'l')
+        document.getElementById('addChoiceLi').style.display = "none";
+    else
+        document.getElementById('addChoiceLi').style.display = "block";
+
+    delete_light();
+
+    if (type == 's') {
+        document.getElementById('choiceSingle').style.backgroundColor = "#dbd9d9";
+    } else if (type == 't') {
+        document.getElementById('choiceText').style.backgroundColor = "#dbd9d9";
+    } else if (type == 'm') {
+        document.getElementById('choiceMultiple').style.backgroundColor = "#dbd9d9";
+    } else if (type == 'd') {
+        document.getElementById('choiceDrop').style.backgroundColor = "#dbd9d9";
+    } else if (type == 'l') {
+        document.getElementById('choiceLinear').style.backgroundColor = "#dbd9d9";
+    }
+
 }
 
 /*
@@ -83,6 +129,9 @@ function add_question(type) {
     } else if (type == 'd') {
         var t = 'dropdown';
         newel.setAttribute('data-qtype', 'd');
+    } else if (type == 'l') {
+        var t = 'linear';
+        newel.setAttribute('data-qtype', 'l');
     }
 
 var b =     '<table><tr>' +
@@ -130,13 +179,7 @@ function gen_choices(qid, type) {
 
     if (type === 's') {
         if (POLL_MODE === true) {
-            document.getElementById('pollAnsType').value = "single";
-            document.getElementById('addChoiceLi').style.display = "block";
-            document.getElementById('choiceSingle').style.backgroundColor = "#dbd9d9";
-            document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
-
+            poll_light('s');
         }
         b += "<div id=\"q" + qid + "-col\">" +
                 '<div class="formChoices" id="formChoices0">' +
@@ -146,12 +189,7 @@ function gen_choices(qid, type) {
              "</div>";
     } else if (type === 'd') {
         if (POLL_MODE === true) {
-            document.getElementById('pollAnsType').value = "dropdown";
-            document.getElementById('addChoiceLi').style.display = "block";
-            document.getElementById('choiceDrop').style.backgroundColor = "#dbd9d9";
-            document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
+            poll_light('d');
         }
         b += "<div id=\"q" + qid + "-col\">" +
                 '<div class="formChoices" id="formChoices0">' +
@@ -161,12 +199,7 @@ function gen_choices(qid, type) {
              "</div>";
     } else if (type === 'm') {
         if (POLL_MODE === true) {
-            document.getElementById('pollAnsType').value = "multiple";
-            document.getElementById('addChoiceLi').style.display = "block";
-            document.getElementById('choiceMult').style.backgroundColor = "#dbd9d9";
-            document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
+            poll_light('m');
         }
         b += "<div id=\"q" + qid + "-col\">" +
                 '<div class="formChoices" id="formChoices0">' +
@@ -176,16 +209,25 @@ function gen_choices(qid, type) {
              "</div>";
     } else if (type === 't') {
         if (POLL_MODE === true) {
-            document.getElementById('pollAnsType').value = "text";
-            document.getElementById('addChoiceLi').style.display = "none";
-            document.getElementById('choiceText').style.backgroundColor = "#dbd9d9";
-            document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
-            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
+            poll_light('t');
         }
         b += "<p>" +
              "<input class=\"formTitle\" style=\"width:100%;\" type=\"text\" name=\"question[" + qid + "][maxlen]\" maxlength=\"" + MAX_T_LEN + "\" placeholder=\"Max length (>512 is considered a paragraph, max is " + strrepeat("9", MAX_T_LEN) + ")\"/>" +
              "</p>";
+    } else if (type === 'l') {
+        if (POLL_MODE === true) {
+            poll_light('l');
+        }
+        b +=    '<table>' +
+                    '<tr>' +
+                        '<td><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][lowlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
+                        '<td><div class="droplist"><select name="question[' + qid + '][lowval]"><option value="0">0</option><option value="1" selected="selected">1</option></select></div></td>' +
+                        '<td>to</td>' +
+                        '<td><div class="droplist"><select name="question[' + qid + '][maxval]"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>' + 
+                        '<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option></select></div></td>' +
+                        '<td><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][maxlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
+                    '</tr>' +
+                '</table>';
     }
 
     content.innerHTML = b;

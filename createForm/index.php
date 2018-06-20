@@ -39,6 +39,7 @@ if ($c->can === false) {
     <li id="choiceMult"><a href="javascript:add_question('m')"><span class="fas fa-check-square"></span> Multiple choices</a></li>
     <li id="choiceText"><a href="javascript:add_question('t')"><span class="fas fa-font"></span> Text choice</a></li>
     <li id="choiceDrop"><a href="javascript:add_question('d')"><span class="fas fa-angle-down"></span> Dropdown</a></li>
+    <li id="choiceLinear"><a href="javascript:add_question('l')"><span class="fas fa-ellipsis-h"></span> Linear scale</a></li>
     <li><a class="ex"></a></li>
     <li><a href="javascript:document.getElementById('newform').submit()"><span class="fas fa-arrow-circle-right"></span> Submit form</a></li>
 </ul>

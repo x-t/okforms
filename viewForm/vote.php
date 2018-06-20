@@ -77,10 +77,12 @@ for ($i = 0; $i < sizeof($qs); $i++) {
     if (intval($a["r"]) !== $q->req)
         logger($clientip, "req_unmatch", "Requirements don't match ({$real_num})");
 
-    if (!$a["a"] && $q->req == 1) {
+    if (!$a["a"] && $q->req == 1 && $q->type != "linear") {
         logger($clientip, "answer_404", "There wasn't an answer when there needs to be one. ({$real_num})");
     } else if (!$a["a"]) {
         $x->key[$i]->a = "Empty";
+        if ($q->type == "linear")
+            $x->key[$i]->a = 0;
         continue;
     }
 
@@ -97,6 +99,11 @@ for ($i = 0; $i < sizeof($qs); $i++) {
                 logger($clientip, "choice_404", "That choice doesn't exist ({$real_num})");
         }
         $x->key[$i]->a = implode("; ", $a["a"]);
+    } else if ($q->type == "linear") {
+        if (intval($a["a"]) < $q->lowval || intval($a["a"]) > $q->maxval) {
+            logger($clientip, "choice_404", "That choice doesn't exist ({$real_num})");
+        }
+        $x->key[$i]->a = intval($a["a"]);
     }
 }
 

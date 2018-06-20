@@ -80,6 +80,23 @@ foreach ($qs as $s) {
             printf('<option value="%s">%s</option>', htmlspecialchars($c), htmlspecialchars($c));
         }
         echo '</select><span class="fas fa-angle-down"></span></div></p>';
+    } else if ($s->type == "linear") {
+        echo '<p><table>';
+        echo '<tr>';
+            echo '<td></td>';
+            for ($ii = $s->lowval; $ii <= $s->maxval; $ii++) {
+                echo '<td>' . $ii . '</td>';
+            }
+            echo '<td></td>';
+        echo '</tr>';
+        echo '<tr>';
+            echo '<td style="width:10%;">' . $s->lowlab . '</td>';
+            for ($ii = $s->lowval; $ii <= $s->maxval; $ii++) { 
+                echo '<td><input type="radio" value="' . $ii . '" name="k[' . $i . '][a]" /></td>';
+            }
+            echo '<td style="width:10%;">' . $s->maxlab . '</td>';
+        echo '</tr>';
+        echo '</table></p>';
     }
 
     $i++;

@@ -164,6 +164,34 @@ if (!isset($question["q"]) || !$question["q"]) {
         len_or_error($question["maxlen"], $MAX_TANSWER_LEN, "Max length &gt; " . str_repeat("9", $MAX_TANSWER_LEN));
         $x->question[$i]->type = "text";
         $x->question[$i]->maxlen = intval($question["maxlen"]);
+    } else if ($question["type"] == "linear") {
+        if (!isset($question["lowval"]))
+            logger($clientip, "low_val_miss", "Lowest value not specified ({$realnum})");
+        if (!isset($question["maxval"]))
+            logger($clientip, "max_val_miss", "Maximum value not specified ({$realnum})");
+        if (intval($question["lowval"]) < 0 || intval($question["lowval"]) > 1)
+            logger($clientip, "low_val_incorrect", "Lowest value incorrect ({$realnum})");
+        if (intval($question["maxval"]) < 2 || intval($question["lowval"]) > 10)
+            logger($clientip, "max_val_incorrect", "Maximum value incorrect ({$realnum})");
+
+        $x->question[$i]->lowval = intval($question["lowval"]);
+        $x->question[$i]->maxval = intval($question["maxval"]);
+
+        if (!isset($question["lowlab"])) {
+            $x->question[$i]->lowlab = "";
+        } else {
+            len_or_error($question["lowlab"], $MAX_CHOICE_LEN, "Low label &gt; " . $MAX_CHOICE_LEN);
+            $x->question[$i]->lowlab = $question["lowlab"];
+        }
+
+        if (!isset($question["maxlab"])) {
+            $x->question[$i]->maxlab = "";
+        } else {
+            len_or_error($question["maxlab"], $MAX_CHOICE_LEN, "Max label &gt; " . $MAX_CHOICE_LEN);
+            $x->question[$i]->maxlab = $question["maxlab"];
+        }
+
+        $x->question[$i]->type = "linear";
     } else {
         logger($clientip, "question_type_err", "Unknown question type ({$realnum})");
     }

@@ -64,6 +64,7 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    outline: 0;
 }
 
 li a:hover:not(.ex) {
@@ -101,4 +102,16 @@ select {
 
 .mustAnswer {
     color: #ff7272;
+}
+
+table {
+    left: 10%;
+    right: 10%;
+    width: 80%;
+    display: absolute;
+    margin: 0 auto;
+}
+
+td {
+    text-align: center;
 }
