@@ -90,10 +90,11 @@ select {
     box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
+    border-bottom: 2px solid black;
 }
 
 .droplist {
     display: inline;
     border-bottom: 2px solid black;
-    padding-bottom: 9px;
+    padding-bottom: 7px;
 }
