@@ -4,6 +4,7 @@
 <title>viewing form</title>
 <link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="/css/viewForm.min.css" />
+<script src="/js/countdown.min.js"></script>
 </head>
 <body>
 <?php
@@ -113,8 +114,17 @@ if ($c->can === false) {
         printf("<p class=\"c\">%s</p>", $x->desc);
     } else if ($c->why == "timeout") {
         $x->type = "timeout";
-        $x->desc = "You have to wait {$c->timeout} seconds before voting";
-        printf("<p class=\"c\">%s</p>", $x->desc);
+        $x->desc = "You have to wait <span id=\"timeoutTime\">{$c->timeout}</span> seconds before voting";
+        printf("<p id=\"timeoutMsg\" class=\"c\">%s</p>", $x->desc);
+?>
+        <script>
+            countdown(document.getElementById("timeoutTime").innerHTML, function(s) {
+                document.getElementById("timeoutTime").innerHTML = s;
+            }, function() {
+                document.getElementById("timeoutMsg").innerHTML = "<button type=\"submit\" class=\"submitBtn\">Submit answers</button>";
+            });
+        </script>
+<?php
     }
 } else {
     echo '<button type="submit" class="submitBtn">Submit answers</button>';

@@ -1,6 +1,6 @@
 # okforms
 
-Do you want to be that annoying f\*ck that keeps giving form links to 2 people instead of just asking them questions? Do you wish that you could create forms on a free/libre platform that no one will answer because it looks so bad? Say no more!  
+Do you want to be that annoying f\*ck that keeps giving form links to 2 people instead of just asking them questions? Do you wish that you could create forms on a free/libre platform that no one will answer because it looks so ~~bad~~ (it actually looks decent now i think)? Say no more!  
 
 Oh, also, it has polls.
 
@@ -26,7 +26,7 @@ The tables are given in [sql.md](sql.md)
 ## Setup
 * Meet the requirements (see above)
 * Set up the SQL server (see above)
-* Change the values [vars.php](vars.php) to your liking
+* Change the values [settings.php](settings.php) to your liking
 * Shove it all in your webroot
 
 ## Other software used in this project

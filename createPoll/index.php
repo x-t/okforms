@@ -27,7 +27,7 @@ if ($c->can === false) {
         genErrPage($x);
     } else if ($c->why == "timeout") {
         $x->type = "timeout";
-        $x->desc = "You have to wait {$c->timeout} seconds before making a new poll.";
+        $x->desc = "You have to wait <span id=\"timeoutTime\">{$c->timeout}</span> seconds before making a new poll.";
         genErrPage($x);
     }
 }

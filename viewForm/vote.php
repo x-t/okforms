@@ -21,7 +21,7 @@ if ($c->can === false) {
         genErrPage($x);
     } else if ($c->why == "timeout") {
         $x->type = "timeout";
-        $x->desc = "You have to wait {$c->timeout} seconds before voting";
+        $x->desc = "You have to wait <span id=\"timeoutTime\">{$c->timeout}</span> seconds before voting";
         genErrPage($x);
     }
 }
