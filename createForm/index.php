@@ -38,6 +38,7 @@ if ($c->can === false) {
     <li id="choiceSingle"><a href="javascript:add_question('s')"><span class="fas fa-check-circle"></span> Single choice</a></li>
     <li id="choiceMult"><a href="javascript:add_question('m')"><span class="fas fa-check-square"></span> Multiple choices</a></li>
     <li id="choiceText"><a href="javascript:add_question('t')"><span class="fas fa-font"></span> Text choice</a></li>
+    <li id="choiceDrop"><a href="javascript:add_question('d')"><span class="fas fa-angle-down"></span> Dropdown</a></li>
     <li><a class="ex"></a></li>
     <li><a href="javascript:document.getElementById('newform').submit()"><span class="fas fa-arrow-circle-right"></span> Submit form</a></li>
 </ul>
@@ -50,15 +51,18 @@ if ($c->can === false) {
         <div class="c"><input type="text" name="title" class="formTitle" maxlength="<?php echo $MAX_TITLE_LEN; ?>" placeholder="Form title" /></div>
         <div class="c"><textarea class="formDescription" name="description" form="newform" maxlength="<?php echo $MAX_DESC_LEN; ?>" placeholder="Form description (optional)"></textarea></div>
         <div class="c"><input class="formTitle" type="password" name="password" maxlength="<?php echo $MAX_PASS_LEN; ?>" placeholder="Form password" /></div>
+        <div style="margin-left:33px;margin-bottom:6px;">
+        <span style="font-size:16;" title="If allowed, people from the same IP can answer more than one time">Allow same IP?</span>
+        <div class="droplist"><select name="sameip">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select><span class="fas fa-angle-down"></span></div>
+        </div>
         <table style="display: table;margin-left: 30px;">
         <tbody>
             <tr data-type="expires">
                 <td title="People won't be able to vote, but the data will stay">Form expires</td>
                 <td><input class="formExpires" type="date" name="expires" /></td>
-            </tr>
-            <tr>
-                <td title="If allowed, people from the same IP can answer more than one time">Allow same IP?</td>
-                <td><input class="formRadio" type="radio" value="true" name="sameip" />Yes <input class="formRadio" type="radio" value="false" name="sameip" />No</td>
             </tr>
         </tbody>
         </table>

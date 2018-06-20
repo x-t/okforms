@@ -36,7 +36,7 @@ if (time() > $row["form_expires"]) {
 }
 ?>
 <ul>
-    <li><a class="ex">okforms</a></li>
+    <li><a href="/">okforms</a></li>
     <li class="r"><a href="/viewForm/answers.php?id=<?php echo $row["form_id"]; ?>"><span class="fas fa-chart-pie"></span> View answers</a></li>
     <li class="r"><a href="/viewForm/report.php?id=<?php echo $row["form_id"]; ?>"><span class="fas fa-flag"></span> Report form</a></li>
 </ul>
@@ -70,6 +70,12 @@ foreach ($qs as $s) {
         foreach ($s->choices as $c) {
             printf('<p><input type="checkbox" name="k[%d][a][]" value="%s" />%s</p>', $i, htmlspecialchars($c), htmlspecialchars($c));
         }
+    } else if ($s->type == "dropdown") {
+        printf('<p><div class="droplist"><select name="k[%d][a]">', $i);
+        foreach ($s->choices as $c) {
+            printf('<option value="%s">%s</option>', htmlspecialchars($c), htmlspecialchars($c));
+        }
+        echo '</select><span class="fas fa-angle-down"></span></div></p>';
     }
 
     $i++;

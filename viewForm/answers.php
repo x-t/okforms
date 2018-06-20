@@ -3,6 +3,7 @@
 <head>
 <link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
 <link rel="stylesheet" type="text/css" href="/css/answersPage.min.css" />
+<script src="/js/answersPage.min.js"></script>
 </head>
 <body>
 <?php
@@ -74,7 +75,11 @@ if (!$a)
 	throwerror("There are no answers");
 
 ?>
-
+<ul>
+    <li><a href="/">okforms</a></li>
+	<li class="r"><a href="javascript:export_json('<?php echo $row["form_id"]; ?>')"><span style="font-weight:bold;">{ }</span> Export as JSON</a></li>
+	<li class="r"><a href="javascript:export_xml('<?php echo $row["form_id"]; ?>')"><span class="fas fa-code"></span> Export as XML</a></li>
+</ul>
 <?php
 $p = array();
 foreach ($a as $z)
@@ -86,7 +91,7 @@ foreach ($p as $key => $value) {
     $p1[$key] = $i;
     $i++;
 }
-
+echo '<div class="c" style="margin-top:50px;">';
 echo '<table>';
 echo '<tr>';
 echo '<th>Person</th>';
@@ -98,13 +103,14 @@ echo '</tr>';
 foreach ($a as $x) {
 	echo '<tr>';
 	printf('<td>#%s</td>', htmlspecialchars($p1[$x->ip]));
-	printf('<td>%s</td>', htmlspecialchars(gmdate("Y-m-d H:i:s", $x->time)));
+	printf('<td data-unix="%s">%s</td>', htmlspecialchars($x->time), htmlspecialchars(gmdate("Y-m-d H:i:s", $x->time)));
 	foreach($x->key as $y) {
 		printf('<td>%s</td>', htmlspecialchars($y->a));
 	}
 	echo '</tr>';
 }
 echo '</table>';
+echo '</div>';
 
 $sql->close();
 

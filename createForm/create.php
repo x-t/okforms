@@ -134,6 +134,18 @@ if (!isset($question["q"]) || !$question["q"]) {
             $ii++;
         }
         $x->question[$i]->type = "single";
+    } else if ($question["type"] == "dropdown") {
+            if (!isset($question["choices"]) || !$question["choices"])
+                logger($clientip, "choice_err", "No specified choices ({$realnum})");
+            $ii = 0;
+            foreach ($question["choices"] as $choice) {
+                if (!isset($choice) || !$choice)
+                    logger($clientip, "choice_err", "Choice not set ({$realnum})");
+                len_or_error($choice, $MAX_CHOICE_LEN, "Choice length &gt; {$MAX_CHOICE_LEN}");
+                $x->question[$i]->choices[$ii] = $choice;
+                $ii++;
+            }
+            $x->question[$i]->type = "dropdown";
     } else if ($question["type"] == "multiple") {
         if (!isset($question["choices"]) || !$question["choices"])
             logger($clientip, "choice_err", "No specified choices ({$realnum})");

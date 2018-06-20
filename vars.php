@@ -51,7 +51,7 @@ function throwerror($e) {
 
 
 /*
- * genErrPage($e, $t)
+ * genErrPage($e)
  * 
  * Generate an error page
  * 

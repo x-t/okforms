@@ -74,3 +74,26 @@ li a:hover:not(.ex) {
 li.r {
     float: right;
 }
+
+select {
+    background-color: white;
+    color: transparent;
+    border: none;
+    padding: 5px 16px;
+    outline: 0;
+    text-decoration: none;
+    position: relative;
+    text-shadow: 0 0 0 black;
+    margin: 0;      
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.droplist {
+    display: inline;
+    border-bottom: 2px solid black;
+    padding-bottom: 9px;
+}

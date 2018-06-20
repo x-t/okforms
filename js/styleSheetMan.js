@@ -15,7 +15,7 @@ function delAllStyles() {
 }
 
 /*
- * addStyle(l)
+ * addStyle(link)
  * 
  * Add a new stylesheet
  * 

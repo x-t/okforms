@@ -22,8 +22,9 @@ if (!isset($_GET["id"]) || !$_GET["id"]) {
         logger($clientip, "report_reason_404", "Report reason was not sent or is empty");
 }
 
-if (isset($_POST["form_id"]))
+if (isset($_POST["form_id"])) {
     goto post_block;
+}
 
 $sql = sqlcon();
 
@@ -55,13 +56,14 @@ if ($r->num_rows == 0)
 </div>
 
 <?php
+exit();
 
 post_block:
+$sql = sqlcon();
+
 $reason = $sql->real_escape_string($_POST["reason"]);
 $ip = $sql->real_escape_string($clientip);
 $form_id = $sql->real_escape_string($_POST["form_id"]);
-
-$sql = sqlcon();
 
 $q = "SELECT * FROM {$SQLREPORTTB} WHERE form_id='{$form_id}' AND ip='{$ip}'";
 $r = $sql->query($q);

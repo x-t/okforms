@@ -30,6 +30,7 @@ function light_type(q) {
     var cs = document.getElementById('choiceSingle');
     var cm = document.getElementById('choiceMult');
     var ct = document.getElementById('choiceText');
+    var cd = document.getElementById('choiceDrop');
     var t = q.getAttribute('data-qtype');
     if (t == 's') {
         cs.style.backgroundColor = "#dbd9d9";
@@ -37,6 +38,8 @@ function light_type(q) {
         ct.style.backgroundColor = "#dbd9d9";
     } else if (t == 'm') {
         cm.style.backgroundColor = "#dbd9d9";
+    } else if (t == 'd') {
+        cd.style.backgroundColor = "#dbd9d9";
     }
 }
 /*
@@ -48,6 +51,7 @@ function delete_light() {
     document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
     document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
     document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
+    document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
 }
 
 /*
@@ -76,21 +80,26 @@ function add_question(type) {
     } else if (type == 'm') {
         var t = 'multiple';
         newel.setAttribute('data-qtype', 'm');
+    } else if (type == 'd') {
+        var t = 'dropdown';
+        newel.setAttribute('data-qtype', 'd');
     }
 
 var b =     '<table><tr>' +
             '<td style="box-sizing: border-box;width: 100%"><input class="formQuestion" type="text" name="question[' + q + '][q]" maxlength="' + MAX_Q_LEN + '" placeholder="Question, type: ' + t + '" title="Type: ' + t + '" /></td>' +
             '<td><button class="deleteQuestion" type="button" onclick="del_question(' + q + ')">&times;</button></td>';
 
-    if (type == 's' || type == 'm')
+    if (type == 's' || type == 'm' || type == 'd')
         b += '<td><button class="choiceAdd" type="button" onclick="add_choice(' + q + ')">+</button></td></tr></table>';
     else
         b += '</tr></table>';
 
-    b +=        '<table style="display: table">' +
+    b +=        '<table style="display: table;margin-bottom:3px;">' +
                     '<tr>' +
                         '<td>Required to answer?</td>' +
-                        '<td><input class="formRadio" type="radio" name="question[' + q + '][req]" value="yes" /> Yes <input class="formRadio" type="radio" name="question[' + q + '][req]" value="no" /> No</td>' +
+                        '<td><div class="droplist"><select name="question[' + q + '][req]">' + 
+                        '<option value="yes">Yes</option><option value="no">No</option></select>' +
+                        '<span class="fas fa-angle-down"></span></div></td>' +
                     '</tr>' +
                 '</table>' +
                 '<input name="question[' + q + '][type]" type="hidden" value="' + t + '"/>' +
@@ -126,6 +135,23 @@ function gen_choices(qid, type) {
             document.getElementById('choiceSingle').style.backgroundColor = "#dbd9d9";
             document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
             document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
+            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
+
+        }
+        b += "<div id=\"q" + qid + "-col\">" +
+                '<div class="formChoices" id="formChoices0">' +
+                    '<div class="deleteChoiceDiv"><button class="deleteQuestion" type="button" onclick="del_choice(0)">&times;</button></div>' +
+                    '<div class="formChoiceDiv"><input class="formTitle" style="width:100%;" type="text" name="question[' + qid + '][choices][] maxlength="' + MAX_C_LEN + '" placeholder="Choice text"></div>' +
+                '</div>' + 
+             "</div>";
+    } else if (type === 'd') {
+        if (POLL_MODE === true) {
+            document.getElementById('pollAnsType').value = "dropdown";
+            document.getElementById('addChoiceLi').style.display = "block";
+            document.getElementById('choiceDrop').style.backgroundColor = "#dbd9d9";
+            document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
+            document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
+            document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
         }
         b += "<div id=\"q" + qid + "-col\">" +
                 '<div class="formChoices" id="formChoices0">' +
@@ -140,6 +166,7 @@ function gen_choices(qid, type) {
             document.getElementById('choiceMult').style.backgroundColor = "#dbd9d9";
             document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
             document.getElementById('choiceText').style.backgroundColor = "#f1f1f1";
+            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
         }
         b += "<div id=\"q" + qid + "-col\">" +
                 '<div class="formChoices" id="formChoices0">' +
@@ -154,6 +181,7 @@ function gen_choices(qid, type) {
             document.getElementById('choiceText').style.backgroundColor = "#dbd9d9";
             document.getElementById('choiceMult').style.backgroundColor = "#f1f1f1";
             document.getElementById('choiceSingle').style.backgroundColor = "#f1f1f1";
+            document.getElementById('choiceDrop').style.backgroundColor = "#f1f1f1";
         }
         b += "<p>" +
              "<input class=\"formTitle\" style=\"width:100%;\" type=\"text\" name=\"question[" + qid + "][maxlen]\" maxlength=\"" + MAX_T_LEN + "\" placeholder=\"Max length (>512 is considered a paragraph, max is " + strrepeat("9", MAX_T_LEN) + ")\"/>" +

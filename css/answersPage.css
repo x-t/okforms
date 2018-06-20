@@ -4,6 +4,7 @@ body {
 
 table {
     border-collapse: collapse;
+    margin: 0 auto;
 }
 
 table, th, td {
@@ -36,4 +37,37 @@ input[type=password] {
     width: 60%;
     position: absolute;
     margin-top: 45px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: absolute;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.ex) {
+    background-color: #555;
+    color: white;
+}
+
+li.r {
+    float: right;
 }

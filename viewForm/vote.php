@@ -86,7 +86,7 @@ for ($i = 0; $i < sizeof($qs); $i++) {
     if ($q->type == "text") {
         len_or_error($a["a"], $q->maxlen, "Answer {$i} was too long");
         $x->key[$i]->a = $a["a"];
-    } else if ($q->type == "single") {
+    } else if ($q->type == "single" || $q->type == "dropdown") {
         if (!in_array($a["a"], $q->choices))
             logger($clientip, "choice_404", "That choice doesn't exist");
         $x->key[$i]->a = $a["a"];

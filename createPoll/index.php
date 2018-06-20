@@ -38,6 +38,7 @@ if ($c->can === false) {
     <li id="choiceSingle"><a href="javascript:gen_choices(0, 's')"><span class="fas fa-check-circle"></span> Single choice</a></li>
     <li id="choiceMult"><a href="javascript:gen_choices(0, 'm')"><span class="fas fa-check-square"></span> Multiple choices</a></li>
     <li id="choiceText"><a href="javascript:gen_choices(0, 't')"><span class="fas fa-font"></span> Text choice</a></li>
+    <li id="choiceDrop"><a href="javascript:gen_choices(0, 'd')"><span class="fas fa-angle-down"></span> Dropdown</a></li>
     <li><a class="ex"></a></li>
     <li><a id="addChoiceLi" style="display:none" href="javascript:add_choice(0)"><span class="fas fa-plus"></span> Add choice</a></li>
     <li><a class="ex"></a></li>
@@ -50,12 +51,13 @@ if ($c->can === false) {
         <input type="hidden" name="form-type" value="poll" />
         <input type="text" name="title" class="formTitle" maxlength="<?php echo $MAX_TITLE_LEN; ?>" placeholder="Question" />
         <input type="text" name="expires" class="formTitle" maxlength="10" placeholder="Expires in (minutes)" />
-        <table style="display: table;margin-left: 10px;">
-        <tr>
-                <td title="If allowed, people from the same IP can answer more than one time">Allow same IP?</td>
-                <td><input class="formRadio" type="radio" value="true" name="sameip" />Yes <input class="formRadio" type="radio" value="false" name="sameip" />No</td>
-        </tr>
-        </table>
+        <div style="margin-bottom:6px;">
+        <span style="font-size:16;" title="If allowed, people from the same IP can answer more than one time">Allow same IP?</span>
+        <div class="droplist"><select name="sameip">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select><span class="fas fa-angle-down"></span></div>
+        </div>
         <div id="formelem">
             <br />
             <br />
