@@ -63,37 +63,38 @@ if (sizeof($qs) !== sizeof($_POST["k"]))
     logger($clientip, "keys_count", "The amount of keys don't match the amount of questions.");
 
 for ($i = 0; $i < sizeof($qs); $i++) {
+    $real_num = $i + 1;
     $q = $qs[$i];
     $a = $_POST["k"][$i];
     
     if (!isset($a["r"]))
-        logger($clientip, "req_404", "req was not found.");
+        logger($clientip, "req_404", "Req was not found. ({$real_num})");
     if (!$a["t"])
-        logger($clientip, "type_404", "type was not found.");
+        logger($clientip, "type_404", "Type was not found. ({$real_num})");
 
     if ($a["t"] !== $q->type)
-        logger($clientip, "ans_unmatch", "answer key was not the same type as question");
+        logger($clientip, "ans_unmatch", "Answer key was not the same type as question ({$real_num})");
     if (intval($a["r"]) !== $q->req)
-        logger($clientip, "req_unmatch", "requirements don't match");
+        logger($clientip, "req_unmatch", "Requirements don't match ({$real_num})");
 
     if (!$a["a"] && $q->req == 1) {
-        logger($clientip, "answer_404", "There wasn't an answer when there needs to be one. ({$i})");
+        logger($clientip, "answer_404", "There wasn't an answer when there needs to be one. ({$real_num})");
     } else if (!$a["a"]) {
         $x->key[$i]->a = "Empty";
         continue;
     }
 
     if ($q->type == "text") {
-        len_or_error($a["a"], $q->maxlen, "Answer {$i} was too long");
+        len_or_error($a["a"], $q->maxlen, "Answer {$real_num} was too long");
         $x->key[$i]->a = $a["a"];
     } else if ($q->type == "single" || $q->type == "dropdown") {
         if (!in_array($a["a"], $q->choices))
-            logger($clientip, "choice_404", "That choice doesn't exist");
+            logger($clientip, "choice_404", "That choice doesn't exist ({$real_num})");
         $x->key[$i]->a = $a["a"];
     } else if ($q->type == "multiple") {
         foreach ($a["a"] as $z) {
             if (!in_array($z, $q->choices))
-                logger($clientip, "choice_404", "That choice doesn't exist");
+                logger($clientip, "choice_404", "That choice doesn't exist ({$real_num})");
         }
         $x->key[$i]->a = implode("; ", $a["a"]);
     }

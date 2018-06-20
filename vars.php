@@ -203,6 +203,7 @@ function logger($ip, $type, $desc) {
     $x = new stdClass();
     $sql = sqlcon();
     $ip = $sql->real_escape_string($ip);
+    $desc_nonsql = $desc;
     $desc = $sql->real_escape_string($desc);
     $err_time = time();
     if (strlen($desc) > 16777215)
@@ -214,7 +215,7 @@ function logger($ip, $type, $desc) {
 
     if ($type != "success_new") {
         $x->type = $type;
-        $x->desc = $desc;
+        $x->desc = htmlspecialchars($desc_nonsql);
         $x->id = $sql->insert_id;
         genErrPage($x);
     }
