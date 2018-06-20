@@ -52,8 +52,12 @@ echo '<form action="/viewForm/vote.php" method="post" id="vote">';
 printf('<input type="hidden" name="form_id" value="%s" />', htmlspecialchars($_GET['id']));
 $i = 0;
 foreach ($qs as $s) {
-    if ($row["form_type"] == "form")
-        printf("<h4>%d. %s</h4>", $i + 1, htmlspecialchars($s->q));
+    if ($row["form_type"] == "form") {
+        $required = "";
+        if ($s->req === 1)
+            $required = "<span class='mustAnswer'>*</span> ";
+        printf("<h4>%s%d. %s</h4>", $required, $i + 1, htmlspecialchars($s->q));
+    }
     printf('<input type="hidden" name="k[%d][r]" value="%d" />', $i, $s->req);
     printf('<input type="hidden" name="k[%d][t]" value="%s" />', $i, $s->type);
     if ($s->type == "text") {
