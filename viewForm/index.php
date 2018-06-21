@@ -30,9 +30,9 @@ if (time() > $row["form_expires"]) {
     $x = new stdClass();
     $x->type = "form_expire";
     if ($row["form_type"] == "form")
-        $x->desc = "Viewing an expired form";
+        $x->desc = "Viewing an expired form " . $row["form_id"];
     else
-        $x->desc = "Viewing an expired poll";
+        $x->desc = "Viewing an expired poll " . $row["form_id"];
     genErrPage($x);
 }
 ?>
