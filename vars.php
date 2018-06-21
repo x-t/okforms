@@ -68,6 +68,8 @@ function genErrPage($e) {
                     if ($r["form_type"] == "poll")
                         printf('<td><a class="button" href="/viewForm/answers.php?id=%s"><span class="fas fa-chart-pie"></span> View answers</a></td>', $id);
                 } else if ($e->type == "form_expire") {
+                    $p = preg_split('/\s+/', $e->desc);
+                    $id = end($p);
                     printf('<td><a class="button" href="/viewForm/answers.php?id=%s"><span class="fas fa-chart-pie"></span> View answers</a></td>', $id);
                 }
             echo '</tr>';
