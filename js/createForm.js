@@ -220,12 +220,12 @@ function gen_choices(qid, type) {
         }
         b +=    '<table>' +
                     '<tr>' +
-                        '<td><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][lowlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
-                        '<td><div class="droplist"><select name="question[' + qid + '][lowval]"><option value="0">0</option><option value="1" selected="selected">1</option></select></div></td>' +
-                        '<td>to</td>' +
-                        '<td><div class="droplist"><select name="question[' + qid + '][maxval]"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>' + 
+                        '<td style="width:40%;"><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][lowlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
+                        '<td style="width:8%;"><div class="droplist"><select name="question[' + qid + '][lowval]"><option value="0">0</option><option value="1" selected="selected">1</option></select></div></td>' +
+                        '<td style="width:4%;">to</td>' +
+                        '<td style="width:8%;"><div class="droplist"><select name="question[' + qid + '][maxval]"><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>' + 
                         '<option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10" selected="selected">10</option></select></div></td>' +
-                        '<td><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][maxlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
+                        '<td style="width:40%;"><input class="formTitle" style="width:100%;padding-bottom:12px;" type="text" name="question[' + qid + '][maxlab]" placeholder="Label (optional)" maxlength="' + MAX_C_LEN + '" /></td>' +
                     '</tr>' +
                 '</table>';
     }

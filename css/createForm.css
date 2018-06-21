@@ -152,7 +152,8 @@ select {
     background-color: white;
     color: transparent;
     border: none;
-    padding: 5px 16px;
+    padding: 7px 16px;
+    border-bottom: 2px solid black;
     outline: 0;
     text-decoration: none;
     position: relative;
@@ -168,5 +169,14 @@ select {
 .droplist {
     display: inline;
     border-bottom: 2px solid black;
-    padding-bottom: 9px;
+    padding-bottom: 10px;
+}
+
+select.form-control {
+    color: black;
+}
+
+option {
+    background-color: white;
+    color: black;
 }
