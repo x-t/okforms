@@ -1,4 +1,4 @@
-<?php include ('../vars.php'); ?>
+<?php include '../vars.php'; ?>
 <html>
 <head>
 <title>okforms - creating form</title>

@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>okforms</title>
-    <?php include('./vars.php'); ?>
+    <?php include './vars.php'; ?>
     <script src="/js/index.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/index.min.css" />
     <link id="fontawesome" rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous" />
@@ -38,7 +38,7 @@
     </div>
     </div>
     <div class="footer">
-    <a href="#" id="gdprShow" title="Privacy"><span class="fas fa-lock"></span></a> | <a href="https://github.com/x-t/okforms" title="Source code"><span class="fab fa-github"></span></a>
+    <a href="#" id="gdprShow" title="Privacy"><span class="fas fa-lock"></span> Privacy</a> | <a href="https://github.com/x-t/okforms" title="Source code"><span class="fab fa-github"></span> Source</a> | <a href="/about/" title="About"><span class="fas fa-question"></span> About</a>
     </div>
 </body>
 </html>
