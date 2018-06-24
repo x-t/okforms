@@ -114,23 +114,24 @@ function add_question(type) {
     var newel = document.createElement("div");
     var n1 = document.createElement("br");
     var n3 = document.createElement("br");
+    var t = '';
     newel.setAttribute('id', 'q' + q);
     newel.setAttribute('onmouseover', 'light_type(this)');
     newel.setAttribute('onmouseout', 'delete_light()');
     if (type == 's') {
-        var t = 'single';
+        t = 'single';
         newel.setAttribute('data-qtype', 's');
     } else if (type == 't') {
-        var t = 'text';
+        t = 'text';
         newel.setAttribute('data-qtype', 't');
     } else if (type == 'm') {
-        var t = 'multiple';
+        t = 'multiple';
         newel.setAttribute('data-qtype', 'm');
     } else if (type == 'd') {
-        var t = 'dropdown';
+        t = 'dropdown';
         newel.setAttribute('data-qtype', 'd');
     } else if (type == 'l') {
-        var t = 'linear';
+        t = 'linear';
         newel.setAttribute('data-qtype', 'l');
     }
 
@@ -258,7 +259,7 @@ function add_choice(qid) {
     y.setAttribute('type', 'text');
     y.setAttribute('name', 'question[' + qid + '][choices][]');
     y.setAttribute('maxlength', MAX_C_LEN);
-    y.setAttribute('style', 'width:100%;')
+    y.setAttribute('style', 'width:100%;');
     y.setAttribute('placeholder', 'Choice text');
     z.setAttribute('class', 'formChoices');
     z.setAttribute('id', 'formChoices' + a);

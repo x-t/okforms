@@ -85,7 +85,7 @@ function export_xml(id) {
     buf += '        <time>' + x[1].getAttribute("data-unix") + '</time>\n';
     buf += '        <prettytime>' + x[1].innerHTML + '</prettytime>\n';
         for (var index1 = 2; index1 < x.length; index1++) {
-            const element = x[index1];
+            var element = x[index1];
     buf += '        <question>\n';
     buf += '            <q>' + h[index1].innerHTML + '</q>\n';
     buf += '            <a>' + element.innerHTML + '</a>\n';
