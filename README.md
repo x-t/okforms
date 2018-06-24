@@ -33,7 +33,7 @@ The tables are given in [SQL.md](SQL.md)
 | FontAwesome | everywhere | https://fontawesome.com/ |
 
 ## Javascript/CSS
-This page uses minified Javascript and CSS. The minified versions are already included, however for any changes make sure to create a minified version. I recommend [this](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify) VSCode extension.
+This page uses minified Javascript and CSS. The minified versions are already included, however for any changes make sure to create a minified version. I recommend [this](https://marketplace.visualstudio.com/items?itemName=olback.es6-css-minify) VSCode extension or [this](https://packagecontrol.io/packages/Minifier) Sublime Text extension.
 
 ## License
 This project is licensed under the MIT (Expat) license, for more info see the [LICENSE](LICENSE.md) file.
