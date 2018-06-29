@@ -238,6 +238,7 @@ function gen_choices(qid, type) {
  * add_choice(qid)
  *
  * Add a choice for single and multiple selection questions
+ * ! extemely high quality code ahead
  *
  * @param int qid Question ID
  */
@@ -275,7 +276,6 @@ function add_choice(qid) {
  *
  * Delete a choice with given ID
  *
- * @param int qid Question ID
  * @param int cid Choice ID to delete
  */
 function del_choice(cid) {
