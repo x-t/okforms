@@ -27,6 +27,9 @@ The tables are given in [SQL.md](SQL.md)
 * Change the values [settings.php](settings.php) to your liking
 * Shove it all in your webroot
 
+### Pro-tip
+Disable PHP notices with `display_errors=0` in your php.ini config.
+
 ## Other software used in this project
 | Name | Where | Link |
 | ---- | ----- | ---- |

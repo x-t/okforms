@@ -36,8 +36,10 @@ Table for Forms:
 | form_sameip  | tinyint(1)    | NO   |     | NULL    |       |
 | form_q       | mediumtext    | YES  |     | NULL    |       |
 | form_a       | mediumtext    | YES  |     | NULL    |       |
-| form_style   | mediumtext    | YES  |     | NULL    |       |
 +--------------+---------------+------+-----+---------+-------+
+
+CREATE TABLE `forms`.`form` ( `form_id` VARCHAR(16) NOT NULL , `form_ip` VARCHAR(64) NOT NULL , `form_type` VARCHAR(10) NOT NULL , `form_made` INT NOT NULL , `form_expires` INT NOT NULL , `form_pass` VARCHAR(1024) NOT NULL , `form_title` VARCHAR(2048) NOT NULL , `form_desc` VARCHAR(4096) NULL , `form_sameip` TINYINT NOT NULL , `form_q` MEDIUMTEXT NULL , `form_a` MEDIUMTEXT NULL, PRIMARY KEY (`form_id`) );
+
 -----------------------------
 
 Table for logs:
@@ -52,6 +54,8 @@ Table for logs:
 | time  | int(11)       | NO   |     | NULL    |                |
 +-------+---------------+------+-----+---------+----------------+
 
+CREATE TABLE `forms`.`logger` ( `id` INT NOT NULL AUTO_INCREMENT , `type` VARCHAR(1024) NOT NULL , `ip` VARCHAR(64) NOT NULL , `descr` MEDIUMTEXT NULL , `time` INT NOT NULL , PRIMARY KEY (`id`));
+
 Table for bans:
 
 +------------+-------------+------+-----+---------+-------+
@@ -63,6 +67,8 @@ Table for bans:
 | ban_create | tinyint(1)  | YES  |     | NULL    |       |
 +------------+-------------+------+-----+---------+-------+
 
+CREATE TABLE `forms`.`bans` ( `ban_ip` VARCHAR(64) NOT NULL , `ban_reason` MEDIUMTEXT NOT NULL , `ban_vote` TINYINT NULL , `ban_create` TINYINT NULL , PRIMARY KEY (`ban_ip`));
+
 Table for reports:
 
 +---------+-------------+------+-----+---------+----------------+
@@ -73,5 +79,7 @@ Table for reports:
 | form_id | varchar(24) | NO   |     | NULL    |                |
 | reason  | mediumtext  | NO   |     | NULL    |                |
 +---------+-------------+------+-----+---------+----------------+
+
+CREATE TABLE `forms`.`reports` ( `id` INT NOT NULL AUTO_INCREMENT , `ip` VARCHAR(64) NOT NULL , `form_id` VARCHAR(24) NOT NULL , `reason` MEDIUMTEXT NOT NULL , PRIMARY KEY (`id`));
 
 ```
