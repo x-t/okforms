@@ -2,9 +2,6 @@
 
 Create simple forms and polls anonymously.
 
-## I don't want to set it up
-There's a public instance on [f00f.xyz](https://okforms.f00f.xyz)
-
 ## Requirements
 
 | PHP modules |
