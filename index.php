@@ -33,7 +33,7 @@
     <div class="viewButton">
     <form id="viewForm" method="get" action="viewForm/index.php" autocomplete="off">
         <input class="viewID" type="text" name="id" placeholder="Form/poll ID" />
-        <button type="submit" class="view">View form</a>
+        <br><button type="submit" class="view">View form</a>
     </form>
     </div>
     </div>
